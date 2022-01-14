@@ -4,62 +4,42 @@ import { render, screen, waitFor } from "@testing-library/react";
 import CheckoutForm from "./CheckoutForm";
 import userEvent from "@testing-library/user-event";
 
-// Write up the two tests here and make sure they are testing what the title shows
-
 test("renders without errors", () => {
-  render(<CheckoutForm/>);
+  render(<CheckoutForm />);
 });
 
 test("shows success message on submit with form details", async () => {
-  render(<CheckoutForm/>);
-
-  // const a = screen.queryByText('Checkout Form')
-  // console.log(a);
-
-  // expect(a).toBeInTheDocument();
+  render(<CheckoutForm />);
 
   const firstName = screen.getByLabelText(/first name:/i);
-  userEvent.type(firstName, 'Tim');
+  userEvent.type(firstName, "Tim");
   //console.log(firstName);
 
   const lastName = screen.getByLabelText(/last name:/i);
-  userEvent.type(lastName, 'Goloshchapov');
+  userEvent.type(lastName, "Goloshchapov");
 
   const address = screen.getByLabelText(/address:/i);
-  userEvent.type(address, '111 Best St.');
+  userEvent.type(address, "111 Best St.");
 
   const city = screen.getByLabelText(/city:/i);
-  userEvent.type(city, 'Timsburg');
+  userEvent.type(city, "Timsburg");
 
   const state = screen.getByLabelText(/state:/i);
-  userEvent.type(state, 'Narnia');
+  userEvent.type(state, "Narnia");
 
   const zip = screen.getByLabelText(/zip:/i);
-  userEvent.type(zip, '78889');
+  userEvent.type(zip, "78889");
 
-  const checkoutButton = screen.getByRole('button'); /// look at getbyrole!!!!!
+  const checkoutButton = screen.getByRole("button");
   userEvent.click(checkoutButton);
 
-  await waitFor(()=>{
-    const firstNameDisplay = screen.queryByText('Tim');
+  await waitFor(() => {
+    const success = screen.queryByTestId("successMessage");
 
-    /// need to figure out why a has a value of null???? is it because of the hook absent?
-
-
-    console.log(firstNameDisplay);
-    const lastNameDisplay = screen.queryByText('Goloshchapov');
-    const addressDisplay = screen.queryByText('111 Best St.');
-    const cityDisplay = screen.queryByText('Timsburg');
-    const stateDisplay = screen.queryByText('Narnia');
-    const zipDisplay = screen.queryByText('78889');
-
-    expect(firstNameDisplay).toBeInTheDocument();
-    expect(lastNameDisplay).toBeInTheDocument();
-    expect(addressDisplay).toBeInTheDocument();
-    expect(cityDisplay).toBeInTheDocument();
-    expect(stateDisplay).toBeInTheDocument();
-    expect(zipDisplay).toBeInTheDocument();
-  })
-
-
+    expect(success).toBeInTheDocument();
+    expect(success.innerHTML).toContain("You have ordered some plants!");
+    expect(success.innerHTML).toContain("Tim Goloshchapov");
+    expect(success.innerHTML).toContain("111 Best St.");
+    expect(success.innerHTML).toContain("Timsburg, Narnia 78889");
+  });
 });

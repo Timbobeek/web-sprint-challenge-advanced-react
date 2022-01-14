@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 
-const useForm = () => {
-  const [values, setValues] = useState({});
+const useForm = (i) => {
+  const [values, setValues] = useState(i);
 
   const handleChanges = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
