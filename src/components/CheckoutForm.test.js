@@ -13,8 +13,14 @@ test("renders without errors", () => {
 test("shows success message on submit with form details", async () => {
   render(<CheckoutForm/>);
 
+  // const a = screen.queryByText('Checkout Form')
+  // console.log(a);
+
+  // expect(a).toBeInTheDocument();
+
   const firstName = screen.getByLabelText(/first name:/i);
   userEvent.type(firstName, 'Tim');
+  //console.log(firstName);
 
   const lastName = screen.getByLabelText(/last name:/i);
   userEvent.type(lastName, 'Goloshchapov');
@@ -35,14 +41,19 @@ test("shows success message on submit with form details", async () => {
   userEvent.click(checkoutButton);
 
   await waitFor(()=>{
-    const a = screen.queryByText('Tim');
+    const firstNameDisplay = screen.queryByText('Tim');
+
+    /// need to figure out why a has a value of null???? is it because of the hook absent?
+
+
+    console.log(firstNameDisplay);
     const lastNameDisplay = screen.queryByText('Goloshchapov');
     const addressDisplay = screen.queryByText('111 Best St.');
     const cityDisplay = screen.queryByText('Timsburg');
     const stateDisplay = screen.queryByText('Narnia');
     const zipDisplay = screen.queryByText('78889');
 
-    expect(a).toBeInTheDocument();
+    expect(firstNameDisplay).toBeInTheDocument();
     expect(lastNameDisplay).toBeInTheDocument();
     expect(addressDisplay).toBeInTheDocument();
     expect(cityDisplay).toBeInTheDocument();
