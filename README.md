@@ -118,8 +118,20 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. What are the main differences between a class-based and a functional component?
 
+Class-based components can utilize react lifecycle methods, they must extend from React, they are stateful, use different syntax, use constructors.
+Functional components are stateless, don't use constructors, do not utilize react lifecycle methods, do not use render method.  
+
 2. When does a componentWillMount function be called? What about a componentDidUpdate?
+
+componentDidMount? is called when the initial data you want to access is rendered, immediately after a component is mounted.
+componentDidUpdate is called immediately after updating occurs.
 
 3. Define stateful logic.
 
+It is logic, that usually deals with state, that is built into a component.
+
 4. What are the three step of creating a successful test? What is done in each phase? 
+
+Arrange: setup the react component you will be testing
+Act: execute the behavior (if there is one)
+Assert: extract the response element and check that is is where you expect it to be
